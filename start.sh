@@ -33,7 +33,7 @@
 #     Starts an interactive session with required image
 #
 
-DOCKER_IMAGE_NAME="holylow/tvm-cpu:v2"
+DOCKER_IMAGE_NAME="holylow/tvm-cpu:latest"
 
 if [ "$#" -gt 0 ]; then
     DOCKER_IMAGE_NAME=("$1")
