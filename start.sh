@@ -57,7 +57,7 @@ echo ""
 
 ${DOCKER_BINARY} run --rm --pid=host \
     -v ${WORKSPACE}:/tvm_workspace \
-    -w /workspace \
+    -w /tvm_workspace \
     -e "CI_BUILD_HOME=/tvm_workspace" \
     -e "CI_BUILD_USER=$(id -u -n)" \
     -e "CI_BUILD_UID=$(id -u)" \
