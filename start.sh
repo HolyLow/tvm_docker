@@ -63,7 +63,6 @@ ${DOCKER_BINARY} run --rm --pid=host \
     -e "CI_BUILD_UID=$(id -u)" \
     -e "CI_BUILD_GROUP=$(id -g -n)" \
     -e "CI_BUILD_GID=$(id -g)" \
-    -e "PYTHONPATH=python:topi/python"\
     -h ${CONTAINER_HOST_NAME} \
     ${CI_DOCKER_EXTRA_PARAMS[@]} \
     ${DOCKER_IMAGE_NAME} \

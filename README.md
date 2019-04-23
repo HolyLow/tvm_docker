@@ -8,7 +8,7 @@
 为了减少编译课程中对tvm运行环境进行配置的负担，本项目根据课程需求配置了课程使用的tvm docker，使用教程如下。
 
 ### 使用步骤
-以下使用步骤针对OS ubuntu 16.04, CPU x86_64/amd64。
+以下使用步骤针对OS ubuntu 16.04(or higher), CPU x86_64/amd64。
 对于其他OS和其他CPU架构，请参照[官网教程](https://docs.docker-cn.com/engine/installation/linux/docker-ce/ubuntu/)进行安装。
 #### I. 安装docker
 1. 安装docker相关的依赖：
