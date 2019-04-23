@@ -34,7 +34,8 @@ mkdir build
 cp cmake/config.cmake build
 cd build
 #echo set\(USE_LLVM llvm-config-6.0\) >> config.cmake
-echo set\(LLVM_CONFIG llvm-config-8.0\) >> config.cmake
+#echo set\(LLVM_CONFIG llvm-config-8.0\) >> config.cmake
+echo set\(USE_LLVM /llvm-8.0/bin/llvm-config\) >> config.cmake
 #echo set\(USE_RPC ON\) >> config.cmake
 #echo set\(USE_SORT ON\) >> config.cmake
 #echo set\(USE_GRAPH_RUNTIME ON\) >> config.cmake

@@ -36,45 +36,36 @@ COPY install/ubuntu_install_core.sh /install/ubuntu_install_core.sh
 RUN bash /install/ubuntu_install_core.sh
 
 # Python: basic dependencies
-#RUN apt-get update && apt-get install -y python3-dev python3-pip
-#RUN pip3 install numpy nose-timer cython decorator scipy
-#RUN sudo apt-get install -y python python-dev python-setuptools gcc \
 RUN sudo apt-get install -y python3 python3-dev python3-setuptools gcc \
          libtinfo-dev zlib1g-dev build-essential cmake
 
-
-# LLVM
-#RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main \
-#     >> /etc/apt/sources.list.d/llvm.list && \
-#     wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - && \
-#     apt-get update && apt-get install -y --force-yes llvm-6.0
-
-RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main \
-     >> /etc/apt/sources.list.d/llvm.list && \
-     wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - && \
-     apt-get update && apt-get install -y --force-yes llvm-8
-
-#RUN deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main
-#RUN deb-src http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main
-
-# Jupyter notebook.
 RUN sudo apt-get install -y python3-pip
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple \
          matplotlib Image Pillow jupyter[notebook]
 
-# Deep learning frameworks
-#RUN pip3 install mxnet tensorflow keras gluoncv
+# Pytorch Deep learning framework
 RUN python3 -m pip install --upgrade torch torchvision \
             -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# TVM python dependencies
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple \
+         numpy decorator attrs tornado psutil xgboost
+
+# LLVM
+RUN wget -O /llvm-8.0.tar.xz \ 
+        http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+RUN xz -d /llvm-8.0.tar.xz && \
+    tar xvf /llvm-8.0.tar && \
+    mv /clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04 /llvm-8.0 && \
+    rm /llvm-8.0.tar
+
+# Jupyter notebook.
 
 # Build TVM
 COPY install/install_tvm_cpu.sh /install/install_tvm_cpu.sh
 RUN bash /install/install_tvm_cpu.sh
 
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
-RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple \
-         numpy decorator attrs tornado psutil xgboost
 # Environment variables
-#ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:/usr/tvm/vta/python:${PYTHONPATH}
 ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:${PYTHONPATH}
