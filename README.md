@@ -1,6 +1,6 @@
 ## tvm docker
 
-[Docker](https://docs.docker-cn.com/)是一种轻量级的容器技术，能够对运行一个程序所需要的操作系统、运行库依赖等运行环境进行封装，使所有的依赖被包括在一个镜像文件中，并以该镜像文件来运行一个容器（类似于开启一个虚拟机）。
+[Docker](https://docs.docker-cn.com/)是一种轻量级的虚拟化技术，能够对运行一个程序所需要的操作系统、运行库依赖等运行环境进行封装，使所有的依赖被包括在一个镜像文件中，并以该镜像文件来运行一个容器（类似于开启一个虚拟机）。
 使用Docker的最直接的两个好处有：
 1. 使得运行环境之间可以进行独立配置，不同的运行环境之间可以互不影响；
 2. 在相应的运行环境文件配置完毕之后，其他用户只需要获取这个文件即可获得相应的运行环境，而不需要再进行配置。
@@ -8,7 +8,7 @@
 为了减少编译课程中对tvm运行环境进行配置的负担，本项目根据课程需求配置了课程使用的tvm docker，使用教程如下。
 
 ### 使用步骤
-以下使用步骤针对OS ubuntu 16.04(or higher), CPU x86_64/amd64。
+以下使用步骤针对OS ubuntu 16.04(or 18.04), CPU x86_64/amd64。
 对于其他OS和其他CPU架构，请参照[官网教程](https://docs.docker-cn.com/engine/installation/linux/docker-ce/ubuntu/)进行安装。
 #### I. 安装docker
 1. 安装docker相关的依赖：
@@ -51,7 +51,7 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 #### II. 添加docker使用权限
-1. 创建docker用户组：
+1. 创建docker用户组（如果在执行后显示用户组已存在(user group already exists)，则直接进入下一步即可）：
 ```
 $ sudo groupadd docker
 ```
@@ -66,8 +66,14 @@ $ sudo systemctl enable docker
 4. 注销、重新登录（或者直接进行重启），使得以上更改生效.
 
 #### III. 使用docker运行tvm
-在本目录下运行：
+1. clone本项目：
 ```
+$ git clone https://github.com/HolyLow/tvm_docker.git
+
+```
+2. 进入项目目录，在项目目录下运行start.sh：
+```
+$ cd tvm_docker
 $ ./start.sh
 ```
 如果运行结果的最后一行为：
