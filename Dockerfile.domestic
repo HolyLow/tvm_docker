@@ -68,7 +68,8 @@ RUN bash /install/install_tvm_cpu.sh
 
 
 # Environment variables
-ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:${PYTHONPATH}
+#ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:${PYTHONPATH}
+RUN export PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:${PYTHONPATH}
 
 # Other tools
 RUN apt-get install -y vim
