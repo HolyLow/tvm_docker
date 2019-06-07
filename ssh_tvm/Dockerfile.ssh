@@ -1,0 +1,29 @@
+FROM holylow/tvm-cpu:latest
+
+RUN mv /bin/sh /bin/sh.old && ln -s /bin/bash /bin/sh
+
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.old
+COPY util/domestic_resources.list /etc/apt/sources.list
+RUN apt-get update --fix-missing
+
+RUN apt-get install -y --fix-missing openssh-server openssh-client
+RUN mkdir /var/run/sshd
+
+RUN useradd admin
+RUN echo "admin:admin" | chpasswd
+RUN mkdir /home/admin
+RUN chown admin:admin /home/admin
+RUN echo "admin ALL=(ALL) ALL" >> /etc/sudoers
+RUN chsh -s /bin/bash admin
+
+RUN echo "root:tvm" | chpasswd
+
+USER admin
+RUN echo 'export PYTHONPATH=/usr/tvm/python:/usr/tvm/topi/python:/usr/tvm/nnvm/python/:/home/admin/.local/lib/python3.5/site-packages:${PYTHONPATH}; export LC_ALL=C' >> /home/admin/.bashrc >> /home/admin/.bash_profile
+RUN pip3 install attrs
+
+USER root
+RUN apt-get install -y --fix-missing stress
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
